@@ -1,4 +1,4 @@
-from typing import List, Tuple, Dict
+from typing import List, Tuple, Dict, Any
 from copy import deepcopy
 from itertools import product
 import numpy as np
@@ -61,6 +61,9 @@ class QuantityRelation:
 
 
 class Quantity:
+
+    outgoing_quantity_relations: List[QuantityRelation]
+    incoming_quantity_relations: List[QuantityRelation]
 
     def __init__(self, name: str, initial_value: int, possible_values: Tuple = (0), initial_derivative: int = 0, possible_derivatives: Tuple = (-1, 0, 1)):
         self.possible_magnitudes = possible_values
@@ -228,6 +231,30 @@ class QualatitiveReasoning:
                         return False
 
             # influences and proportionals
+            relations = quantity.incoming_quantity_relations
+            signs = set()
+            for r in relations:
+                quant_index = self.quantities.index(r.quantity_from)
+                magnitude_from = entry[quant_index * 2]
+                derivative_from = entry[quant_index * 2 + 1]
+                if isinstance(r, Influence):
+                    signs.add(r.sign * int(magnitude_from != 0))
+                else:
+                    signs.add(r.sign * derivative_from)
+
+
+            # If ambugity
+            if -1 in signs and 1 in signs: # (0 could also be in it)
+                continue
+            elif -1 in signs and derivative != -1:
+                return False
+            elif 1 in signs and derivative != 1:
+                return False
+            elif 0 in signs and derivative != 0:
+                return False
+
+
+
         return True
 
 
