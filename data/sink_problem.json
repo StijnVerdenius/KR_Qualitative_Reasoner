@@ -14,10 +14,71 @@
     {
       "name" : "Above of",
       "from" : "tap",
-      "to" : "container",
+      "to" : "container"
+
+    },
+    {
+      "name" : "In bottom of",
+      "from" : "sink",
+      "to" : "container"
 
     }
 
-  ]
+  ],
+  "value_constraints" : [
+    {
+      "sign" : true,
+      "from" : "volume",
+      "to" : "outflow"
+    }
+  ],
+    "quantities" : [
+      {
+        "name": "inflow",
+        "random_allowed": true,
+        "possible_magnitudes": [
+          "NULL",
+          "POS"
+        ]
+      },
+      {
+        "name": "volume",
+        "random_allowed": false,
+        "possible_magnitudes": [
+          "NULL",
+          "POS",
+          "MAX"
+        ]
+      },
+      {
+        "name": "outflow",
+        "random_allowed": false,
+        "possible_magnitudes": [
+          "NULL",
+          "POS",
+          "MAX"
+        ]
+      }
 
+    ],
+  "relations" : [
+    {
+      "type" : "Influence",
+      "sign" : true,
+      "from" : "inflow",
+      "to" : "volume"
+    },
+    {
+      "type" : "Influence",
+      "sign" : false,
+      "from" : "outflow",
+      "to" : "volume"
+    },
+    {
+      "type" : "Proportion",
+      "sign" : true,
+      "from" : "volume",
+      "to" : "outflow"
+    }
+  ]
 }
