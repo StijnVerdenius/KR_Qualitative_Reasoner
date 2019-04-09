@@ -8,9 +8,7 @@ from data.constants import *
 
 
 class QualatitiveReasoning:
-    """
-    Qualitative reasoning engine
-    """
+    """ Qualitative Reasoning engine """
     entities: List[Entity]
     quantities: List[Quantity]
 

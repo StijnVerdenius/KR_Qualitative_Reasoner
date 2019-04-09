@@ -18,9 +18,9 @@ def main():
     er1 = EntityRelation("Above of", tap, container)
     er2 = EntityRelation("In bottom of", sink, container)
 
-    inflow = Quantity("inflow", NULL, (NULL, POS))
-    outflow = Quantity("outflow", NULL, (NULL, POS, MAX))
-    volume = Quantity("volume", NULL, (NULL, POS, MAX))
+    inflow = Quantity("inflow", (NULL, POS))
+    outflow = Quantity("outflow", (NULL, POS, MAX))
+    volume = Quantity("volume", (NULL, POS, MAX))
     quantities = [inflow, volume, outflow]
 
     i1 = Influence(False, outflow, volume)
