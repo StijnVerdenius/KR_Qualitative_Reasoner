@@ -16,8 +16,6 @@ from itertools import product as prd
 #
 # for al, bl, cl, dl in zip(aa,bb,cc,dd):
 #     print(al, bl, cl, dl)
-
-print(prd(b, repeat=3))
-
-for x in prd(b, repeat=3):
-    print(x)
+ding = prd(b)
+for di in ding:
+    print(di)

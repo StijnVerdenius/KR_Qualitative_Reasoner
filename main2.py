@@ -1,6 +1,6 @@
 from typing import List, Tuple, Dict, Any
 from copy import deepcopy
-from itertools import product
+from itertools import product, combinations
 import numpy as np
 import math
 
@@ -176,7 +176,11 @@ class QualatitiveReasoning:
         for st in states:
             print(st)
 
-        connection_dictionary = {}
+        graaf = self.generate_graph(states)
+
+        for grap in graaf:
+
+            print(grap, graaf[grap])
 
 
 
@@ -260,6 +264,80 @@ class QualatitiveReasoning:
 
 
         return True
+
+    def apply_derivatives(self, state, quantity_names):
+        """
+        Applies derivatives to current magnitudes
+
+        :param state:
+        :return:
+        """
+
+        for quantity_name in quantity_names:
+
+            derivative = state.values[quantity_name][1]
+            magnitue = state.values[quantity_name][0]
+
+            corresponidng_quantity = None
+
+            for q in self.quantities:
+                if q.name==quantity_name:
+                    corresponidng_quantity = q
+                    break
+
+            possible = corresponidng_quantity.possible_magnitudes
+
+            index_now = possible.index(magnitue)
+
+            index_new = index_now + derivative
+
+            if index_new >= len(possible):
+
+                index_new = len(possible)
+
+            elif (index_new < 0):
+
+                index_new = 0
+
+            new_tuple = (possible[index_new], derivative)
+
+            state.values[quantity_name] = new_tuple
+
+            state.reload_id()
+
+    def generate_graph(self, states):
+        existing_states = {state.id :  state for state in states}
+        graph = {state : set() for state in states}
+
+        added_new_connection = True
+
+        name_product = [combi for z in range(1, 4) for combi in combinations([q.name for q in self.quantities], z)]
+
+        while (added_new_connection):
+
+            added_new_connection = False
+
+            for state in states:
+
+                for name_combi in name_product:
+
+                    new_state = deepcopy(state)
+
+                    self.apply_derivatives(new_state, name_combi)
+
+                    if (new_state.id not in existing_states): continue
+
+                    graph[new_state.id] = state.id
+
+                    added_new_connection = True
+
+        return graph
+
+
+
+
+
+
 
 
 if __name__ == "__main__":
