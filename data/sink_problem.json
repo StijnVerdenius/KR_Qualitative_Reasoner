@@ -1,0 +1,17 @@
+{
+  "entities" : [
+    {
+      "name" : "tap"
+    },
+    {
+      "name" : "sink"
+    },
+    {
+      "name" : "container"
+    }
+  ],
+  "entity_relations" : [
+
+  ]
+
+}
