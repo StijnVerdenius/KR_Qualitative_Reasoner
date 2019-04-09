@@ -15,7 +15,6 @@ def main():
 
     er1 = EntityRelation("Above of", tap, container)
     er2 = EntityRelation("In bottom of", sink, container)
-    entity_relations = [er1, er2]
 
     inflow = Quantity("inflow", NULL, (NULL, POS))
     outflow = Quantity("outflow", NULL, (NULL, POS, MAX))
@@ -34,37 +33,28 @@ def main():
     volume.set_incoming_quantity_relation(i1)
     volume.set_incoming_quantity_relation(i2)
 
-    quantity_relations = [i1, i2, p1]
-
-    system = QualatitiveReasoning(entities, entity_relations, quantities, quantity_relations, [value_constraint])
+    system = QualatitiveReasoning(entities, quantities, [value_constraint])
     system.solve()
 
 
 
 class QualatitiveReasoning:
+    """
+    Qualitative reasoning engine
+    """
     entities: List[Entity]
-    entity_relations: List[EntityRelation]
     quantities: List[Quantity]
-    quantity_relations: List[QuantityRelation]
 
-    def __init__(self,
-                 entities: List[Entity],
-                 entity_relations: List[EntityRelation],
-                 quantities: List[Quantity],
-                 quantity_relations: List[QuantityRelation],
-                 value_constraints: List[ValueConstraint]
-                 ):
+    def __init__(self, entities: List[Entity], quantities: List[Quantity], value_constraints: List[ValueConstraint]):
 
         self.entities = entities
-        self.entity_relations = entity_relations
         self.quantities = quantities
-        self.quantity_relations = quantity_relations
         self.value_constraints = value_constraints
 
     def solve(self):
 
+        # Get all possible values defined as all possible values for magnitudes/derivatives in the program
         possible_values = set()
-
         for quantity in self.quantities:
             magnitudes = quantity.possible_magnitudes
             derivatives = quantity.possible_derivatives
@@ -72,34 +62,30 @@ class QualatitiveReasoning:
             possible_values.update(magnitudes)
             possible_values.update(derivatives)
 
-        big_matrix = list(product(possible_values, repeat=2 * len(self.quantities)))
-
-        print(np.array(big_matrix).shape)
-
+        # Build all possible states with all possible values they could potentially take
+        # This is done by taking every possibility and then filtering out the non-sense ones.
+        possibilities_matrix = list(product(possible_values, repeat=2 * len(self.quantities)))
         transfer_matrix = []
-
-        for entry in big_matrix:
-
+        for entry in possibilities_matrix:
             if (self.is_valid(entry)):
                 transfer_matrix.append(entry)
 
+        # Append these states from the transfer_matrix to a state list.
         states = []
-
         for state in transfer_matrix:
             states.append(State(self.quantities, [tuple((state[i * 2], state[i * 2 + 1])) for i in range(len(self.quantities))]))
 
-        for st in states:
-            print(st)
+        # Generate a graph from the remaining valid states.
+        graph, all_states = self.generate_graph(states)
 
-        graaf, all_states = self.generate_graph(states)
+        # Visualize the resulting graph.
+        self.visualize(graph, all_states, states)
 
-        for grap in graaf:
-            print(grap, "\t\t:\t\t", graaf[grap])
-
-        self.visualize(graaf, all_states)
-
-    def is_valid(self, entry):
-
+    def is_valid(self, entry) -> bool:
+        """
+        Returns whether this is a valid 'entry' (a possible state)
+        :rtype: bool
+        """
         for i, number in enumerate(entry):
 
             # only look at pairs
@@ -180,7 +166,6 @@ class QualatitiveReasoning:
         :param state:
         :return:
         """
-
         for quantity_name in quantity_names:
 
             derivative = state.values[quantity_name][1]
@@ -214,6 +199,11 @@ class QualatitiveReasoning:
             state.reload_id()
 
     def generate_graph(self, states):
+        """
+        Returns a dictionary of state ids and as values the states it is connected to.
+        Secondly returns another dictionary containing all states, with their ids as key
+        :rtype: Tuple(graph, existing_states)
+        """
         existing_states = {state.id: state for state in states}
         graph = {state.id: set() for state in states}
 
@@ -221,7 +211,7 @@ class QualatitiveReasoning:
 
         name_product = [combi for z in range(1, 4) for combi in combinations([q.name for q in self.quantities], z)]
 
-        while (added_new_connection):
+        while added_new_connection:
 
             added_new_connection = False
 
@@ -240,7 +230,8 @@ class QualatitiveReasoning:
 
                         self.appy_relations(new_state)
 
-                        if ("inflow" in name_combi):
+                        # Since inflow has a random derivative this is a hardcoded flow.
+                        if "inflow" in name_combi:
                             new_state.values["inflow"] = (new_state.values["inflow"][0], possible_inflow)
 
                             new_state.reload_id()
@@ -255,23 +246,29 @@ class QualatitiveReasoning:
 
         return graph, existing_states
 
-    def visualize(self, graph_, all_states):
+    def visualize(self, graph_, all_states, ordered_states_list):
+        """
+        Visualizes state graph using graphviz
+        """
         graph = Digraph(comment='The Qualitative Model')
         graph.node_attr.update(color='lightblue2', style='filled')
 
-        for i, (state, connect_to) in enumerate(graph_.items()):
-
-            graph.node(str(all_states[state].visual()), label=str(i) + "\n\n" + str(all_states[state].visual()))
+        for i, state_object in enumerate(ordered_states_list):
+            state_id = state_object.id
+            connect_to = graph_[state_id]
+            graph.node(str(all_states[state_id].visual()), label=str(i) + "\n\n" + str(all_states[state_id].visual()))
 
             for connection_state in connect_to:
-                graph.edge(str(all_states[state].visual()), str(all_states[connection_state].visual()))
+                graph.edge(str(all_states[state_id].visual()), str(all_states[connection_state].visual()))
 
         graph.view("./results/result")
 
         return True
 
-    def appy_relations(self, new_state):
-
+    def appy_relations(self, new_state: State):
+        """
+        Applies relations in the state and propagates any Influence or Proportional changes/relations to derivatives.
+        """
         for quantity_name, (magnitude, derivative) in new_state.values.items():
 
             corresponidng_quantity = None
@@ -281,7 +278,7 @@ class QualatitiveReasoning:
                     corresponidng_quantity = q
                     break
 
-            # influences and proportionals
+            # Influences and proportional relations
             relations = corresponidng_quantity.incoming_quantity_relations
             signs = set()
             for r, quantity_from in relations:
@@ -293,9 +290,7 @@ class QualatitiveReasoning:
                 else:
                     signs.add(r.sign * derivative_from)
 
-            new_derivative = None
-
-            # If ambugity
+            # If ambiguity
             if -1 in signs and 1 in signs:  # (0 could also be in it)
                 continue
             elif -1 in signs and derivative != -1:
