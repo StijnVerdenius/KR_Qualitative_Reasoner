@@ -13,7 +13,7 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/KR_Qualitative_Reasoner$main.coverage" NAME="main Coverage Results" MODIFIED="1554802604901" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/KR_Qualitative_Reasoner$test.coverage" NAME="test Coverage Results" MODIFIED="1554816240098" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/KR_Qualitative_Reasoner$main2.coverage" NAME="main2 Coverage Results" MODIFIED="1554818135972" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/KR_Qualitative_Reasoner$main2.coverage" NAME="main2 Coverage Results" MODIFIED="1554818934479" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="-271102250">
@@ -43,13 +43,13 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="json" value="28" />
-          <entry key="py" value="6801" />
+          <entry key="py" value="6873" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JSON" value="28" />
-          <entry key="Python" value="6801" />
+          <entry key="Python" value="6873" />
         </counts>
       </usages-collector>
     </session>
@@ -71,8 +71,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="552">
-              <caret line="425" column="10" lean-forward="true" selection-start-line="425" selection-start-column="10" selection-end-line="425" selection-end-column="10" />
+            <state relative-caret-position="360">
+              <caret line="364" lean-forward="true" selection-start-line="364" selection-end-line="364" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -286,7 +286,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.1995638" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.1570338" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -323,15 +323,26 @@
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <condition expression="new_state.id == ((1,1),(0,1),(0,1)) and state.id == ((1,0),(0,1),(0,1))" language="Python" />
           <url>file://$PROJECT_DIR$/main2.py</url>
-          <line>407</line>
-          <option name="timeStamp" value="27" />
+          <line>357</line>
+          <option name="timeStamp" value="28" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="breakpointCondition">
+      <expression>
+        <expression-string>new_state.id == ((1,1),(0,1),(0,1)) and state.id == ((1,0),(0,1),(0,1))</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>state.id == ((1,1),(0,1),(0,1)) and new_state.id == ((1,0),(0,1),(0,1))</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>state.id == ((0,0), (0,0), (0,0)) or new_state.id == ((0,0), (0,0), (0,0))</expression-string>
         <language-id>Python</language-id>
@@ -400,8 +411,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="552">
-          <caret line="425" column="10" lean-forward="true" selection-start-line="425" selection-start-column="10" selection-end-line="425" selection-end-column="10" />
+        <state relative-caret-position="360">
+          <caret line="364" lean-forward="true" selection-start-line="364" selection-end-line="364" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>

@@ -366,9 +366,9 @@ class QualatitiveReasoning:
         graph = Digraph(comment='The Qualitative Model')
         graph.node_attr.update(color='lightblue2', style='filled')
 
-        for state, connect_to in graph_.items():
+        for i, (state, connect_to) in enumerate(graph_.items()):
 
-            graph.node(str(all_states[state].visual()))
+            graph.node(str(all_states[state].visual()), label=str(i)+"\n\n"+str(all_states[state].visual()))
 
             for connection_state in connect_to:
 
