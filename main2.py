@@ -18,7 +18,7 @@ def main():
     inflow = Quantity("inflow", 0, (0, "+"))
     outflow = Quantity("outflow", 0, (0, "+", "max"))
     volume = Quantity("volume", 0, (0,"+", "max"))
-    quantities = [outflow, inflow, volume]
+    quantities = [inflow, volume, outflow]
 
     i1 = Influence(False, outflow, volume)
     i2 = Influence(True, inflow, volume)
@@ -161,12 +161,18 @@ class QualatitiveReasoning:
             if (self.is_valid(entry)):
                 transfer_matrix.append(entry)
 
-        states = np.array(transfer_matrix)
+        states = []
 
         for state in transfer_matrix:
             print(state)
+            states.append(State(self.quantities, [tuple((state[i*2], state[i*2 + 1])) for i in range(len(self.quantities))]))
 
-        print(states.shape)
+        for st in states:
+            print(st.id)
+
+        print(np.array(states).shape)
+
+
 
 
 
@@ -222,9 +228,7 @@ class QualatitiveReasoning:
                         return False
 
             # influences and proportionals
-
-
-            return True
+        return True
 
 
 if __name__ == "__main__":
