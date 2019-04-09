@@ -72,7 +72,6 @@ class Quantity:
         self.initial_value = initial_value
         self.possible_derivatives = possible_derivatives
         self.initial_derivative = initial_derivative
-        self.derivative = 0
         self.name = name
         self.incoming_quantity_relations = []
         self.outgoing_quantity_relations = []
@@ -82,9 +81,6 @@ class Quantity:
 
     def set_incoming_quantity_relation(self, quantiy_relation: QuantityRelation):
         self.incoming_quantity_relations.append((quantiy_relation, quantiy_relation.quantity_from))
-
-    def get_current_value_and_derivative(self):
-        return (self.initial_value, self.initial_derivative)
 
 class State:
 
