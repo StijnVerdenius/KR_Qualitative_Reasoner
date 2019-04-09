@@ -330,19 +330,28 @@ class QualatitiveReasoning:
 
             for state in states:
 
+                inflow_derivative = state.values["inflow"][1]
+
+                possibilities_inflow = [x for x in range(-1, 2) if abs(x - inflow_derivative) < 2]
+
                 for name_combi in name_product:
+                    for possible_inflow in possibilities_inflow:
 
-                    new_state = deepcopy(state)
+                        new_state = deepcopy(state)
 
-                    self.apply_derivatives(new_state, name_combi)
+                        self.apply_derivatives(new_state, name_combi)
 
-                    if ((new_state.id not in existing_states)): continue
-                    if ((state.id in graph[new_state.id])): continue
-                    if ((state.id == new_state.id)): continue
+                        new_state.values["inflow"] = (new_state.values["inflow"][0], possible_inflow)
 
-                    graph[new_state.id].add(state.id)
+                        new_state.reload_id()
 
-                    added_new_connection = True
+                        if ((new_state.id not in existing_states)): continue
+                        if ((new_state.id in graph[state.id])): continue
+                        if ((state.id == new_state.id)): continue
+
+                        graph[state.id].add(new_state.id)
+
+                        added_new_connection = True
 
         return graph, existing_states
 
@@ -358,7 +367,6 @@ class QualatitiveReasoning:
             for connection_state in connect_to:
 
                 graph.edge(str(all_states[state].visual()), str(all_states[connection_state].visual()))
-
 
         graph.view()
 
