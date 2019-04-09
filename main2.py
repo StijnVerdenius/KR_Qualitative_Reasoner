@@ -3,6 +3,7 @@ from copy import deepcopy
 from itertools import product, combinations
 import numpy as np
 import math
+from graphviz import Digraph
 
 MIN, NEG, NULL, POS, MAX = -2, -1, 0, 1, 2
 
@@ -101,6 +102,12 @@ class State:
     def equals(self, state: 'State') -> bool:
         return self.id == state.id
 
+    def visual(self):
+        builder = ""
+        for i, element in enumerate(self.id):
+            builder += self.key_order[i] + " " + (str(element)+"\n")
+        return builder
+
 
 
 class ValueConstraint(QuantityRelation):
@@ -179,11 +186,13 @@ class QualatitiveReasoning:
         for st in states:
             print(st)
 
-        graaf = self.generate_graph(states)
+        graaf, all_states = self.generate_graph(states)
 
         for grap in graaf:
 
-            print(grap, graaf[grap])
+            print(grap, "\t\t:\t\t",  graaf[grap])
+
+        self.visualize(graaf, all_states)
 
 
 
@@ -253,7 +262,6 @@ class QualatitiveReasoning:
                 else:
                     signs.add(r.sign * derivative_from)
 
-
             # If ambugity
             if -1 in signs and 1 in signs: # (0 could also be in it)
                 continue
@@ -296,7 +304,7 @@ class QualatitiveReasoning:
 
             if index_new >= len(possible):
 
-                index_new = len(possible)
+                index_new = len(possible)-1
 
             elif (index_new < 0):
 
@@ -310,7 +318,7 @@ class QualatitiveReasoning:
 
     def generate_graph(self, states):
         existing_states = {state.id :  state for state in states}
-        graph = {state : set() for state in states}
+        graph = {state.id : set() for state in states}
 
         added_new_connection = True
 
@@ -328,13 +336,33 @@ class QualatitiveReasoning:
 
                     self.apply_derivatives(new_state, name_combi)
 
-                    if (new_state.id not in existing_states): continue
+                    if ((new_state.id not in existing_states)): continue
+                    if ((state.id in graph[new_state.id])): continue
+                    if ((state.id == new_state.id)): continue
 
-                    graph[new_state.id] = state.id
+                    graph[new_state.id].add(state.id)
 
                     added_new_connection = True
 
-        return graph
+        return graph, existing_states
+
+    def visualize(self, graph_, all_states):
+
+        graph = Digraph(comment='The Qualitative Model')
+        graph.node_attr.update(color='lightblue2', style='filled')
+
+        for state, connect_to in graph_.items():
+
+            graph.node(str(all_states[state].visual()))
+
+            for connection_state in connect_to:
+
+                graph.edge(str(all_states[state].visual()), str(all_states[connection_state].visual()))
+
+
+        graph.view()
+
+        return True
 
 
 
