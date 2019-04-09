@@ -98,6 +98,9 @@ class State:
     def __repr__(self):
         return str({a: b for a,b in zip (self.key_order, self.id)})
 
+    def equals(self, state: 'State') -> bool:
+        return self.id == state.id
+
 
 
 class ValueConstraint(QuantityRelation):
