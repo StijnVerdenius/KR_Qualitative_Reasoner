@@ -4,6 +4,8 @@ from itertools import product
 import numpy as np
 import math
 
+MIN, NEG, NULL, POS, MAX = -2, -1, 0, 1, 2
+
 
 def main():
     tap = Entity("tap")
@@ -15,9 +17,9 @@ def main():
     er2 = EntityRelation("In bottom of", sink, container)
     entity_relations = [er1, er2]
 
-    inflow = Quantity("inflow", 0, (0, "+"))
-    outflow = Quantity("outflow", 0, (0, "+", "max"))
-    volume = Quantity("volume", 0, (0,"+", "max"))
+    inflow = Quantity("inflow", NULL, (NULL, POS))
+    outflow = Quantity("outflow", NULL, (NULL, POS, MAX))
+    volume = Quantity("volume", NULL, (NULL, POS, MAX))
     quantities = [inflow, volume, outflow]
 
     i1 = Influence(False, outflow, volume)
@@ -26,7 +28,6 @@ def main():
 
     value_constraint = ValueConstraint(True, volume, outflow)
 
-    # TODO: Maybe refactor to do this automatically
     outflow.set_outgoing_quantity_relation(i1)
     outflow.set_incoming_quantity_relation(p1)
     inflow.set_outgoing_quantity_relation(i2)
@@ -65,7 +66,7 @@ class Quantity:
     outgoing_quantity_relations: List[QuantityRelation]
     incoming_quantity_relations: List[QuantityRelation]
 
-    def __init__(self, name: str, initial_value: int, possible_values: Tuple = (0), initial_derivative: int = 0, possible_derivatives: Tuple = (-1, 0, 1)):
+    def __init__(self, name: str, initial_value: int, possible_values: Tuple = (NULL), initial_derivative: int = NULL, possible_derivatives: Tuple = (NEG, NULL, POS)):
         self.possible_magnitudes = possible_values
         self.initial_value = initial_value
         self.possible_derivatives = possible_derivatives
@@ -93,6 +94,9 @@ class State:
 
     def reload_id(self):
         self.id = tuple(self.values[name] for name in self.key_order)
+
+    def __repr__(self):
+        return str({a: b for a,b in zip (self.key_order, self.id)})
 
 
 
@@ -170,9 +174,10 @@ class QualatitiveReasoning:
             states.append(State(self.quantities, [tuple((state[i*2], state[i*2 + 1])) for i in range(len(self.quantities))]))
 
         for st in states:
-            print(st.id)
+            print(st)
 
-        print(np.array(states).shape)
+        connection_dictionary = {}
+
 
 
 
@@ -207,7 +212,7 @@ class QualatitiveReasoning:
                 index_middle_derivative = int(len(quantity.possible_derivatives)/2) # estimation
 
             # magnitude is max and derivative is still positive
-            if (index_magnitude == len(quantity.possible_magnitudes)-1 and index_derivative > index_middle_derivative):
+            if (magnitude == MAX and index_derivative > index_middle_derivative):
                 return False
             # magnitude is min and derivative is still negative
             elif (index_magnitude == 0 and index_derivative < index_middle_derivative):
@@ -249,9 +254,8 @@ class QualatitiveReasoning:
                 return False
             elif 1 in signs and derivative != 1:
                 return False
-            elif 0 in signs and derivative != 0:
-                pass
-                # return False
+            elif 0 in signs and len(signs) == 1 and derivative != 0:
+                return False
 
 
 
