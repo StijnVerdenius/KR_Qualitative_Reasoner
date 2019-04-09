@@ -167,7 +167,6 @@ class QualatitiveReasoning:
         states = []
 
         for state in transfer_matrix:
-            print(state)
             states.append(State(self.quantities, [tuple((state[i*2], state[i*2 + 1])) for i in range(len(self.quantities))]))
 
         for st in states:
@@ -233,7 +232,7 @@ class QualatitiveReasoning:
             # influences and proportionals
             relations = quantity.incoming_quantity_relations
             signs = set()
-            for r in relations:
+            for r, quantity_from in relations:
                 quant_index = self.quantities.index(r.quantity_from)
                 magnitude_from = entry[quant_index * 2]
                 derivative_from = entry[quant_index * 2 + 1]
@@ -251,7 +250,8 @@ class QualatitiveReasoning:
             elif 1 in signs and derivative != 1:
                 return False
             elif 0 in signs and derivative != 0:
-                return False
+                pass
+                # return False
 
 
 
