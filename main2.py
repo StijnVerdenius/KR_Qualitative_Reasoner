@@ -316,6 +316,8 @@ class QualatitiveReasoning:
 
             state.reload_id()
 
+
+
     def generate_graph(self, states):
         existing_states = {state.id :  state for state in states}
         graph = {state.id : set() for state in states}
@@ -341,9 +343,13 @@ class QualatitiveReasoning:
 
                         self.apply_derivatives(new_state, name_combi)
 
-                        new_state.values["inflow"] = (new_state.values["inflow"][0], possible_inflow)
+                        self.appy_relations(new_state)
 
-                        new_state.reload_id()
+                        if ("inflow" in name_combi):
+
+                            new_state.values["inflow"] = (new_state.values["inflow"][0], possible_inflow)
+
+                            new_state.reload_id()
 
                         if ((new_state.id not in existing_states)): continue
                         if ((new_state.id in graph[state.id])): continue
@@ -372,11 +378,48 @@ class QualatitiveReasoning:
 
         return True
 
+    def appy_relations(self, new_state):
 
+        for quantity_name, (magnitude, derivative) in new_state.values.items():
 
+            corresponidng_quantity = None
 
+            for q in self.quantities:
+                if q.name == quantity_name:
+                    corresponidng_quantity = q
+                    break
 
+            # influences and proportionals
+            relations = corresponidng_quantity.incoming_quantity_relations
+            signs = set()
+            for r, quantity_from in relations:
 
+                magnitude_from, derivative_from = new_state.values[quantity_from.name]
+
+                if isinstance(r, Influence):
+                    signs.add(r.sign * int(magnitude_from != 0))
+                else:
+                    signs.add(r.sign * derivative_from)
+
+            new_derivative = None
+
+            # If ambugity
+            if -1 in signs and 1 in signs:  # (0 could also be in it)
+                continue
+            elif -1 in signs and derivative != -1:
+                new_derivative = -1
+            elif 1 in signs and derivative != 1:
+                new_derivative = 1
+            elif 0 in signs and len(signs) == 1 and derivative != 0:
+                new_derivative = 0
+            else:
+                continue
+
+            new_tuple = (magnitude, new_derivative)
+
+            new_state.values[quantity_name] = new_tuple
+
+        new_state.reload_id()
 
 
 if __name__ == "__main__":
