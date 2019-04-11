@@ -42,7 +42,7 @@ class Trace:
             # follow arrows
             for possible_next in self.graph[current_element[0]]:
 
-                if (possible_next in cyclefree):
+                if (possible_next in cyclefree or possible_next in found_paths):
                     continue
 
                 found_paths[possible_next] = current_element[0]

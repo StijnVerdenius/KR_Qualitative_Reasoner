@@ -106,7 +106,7 @@ def main():
     try:
         use_path = sys.argv[2]
     except:
-        use_path = False
+        use_path = True
 
     system = load_system(filename)
     graph, all_states, states_ordered = system.solve()
