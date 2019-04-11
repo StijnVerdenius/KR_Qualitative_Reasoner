@@ -1,5 +1,14 @@
 {
-  "inflow" : [1,1],
-  "volume" : [1,1],
-  "outflow" : [1,1]
+  "inflow": [
+    1,
+    1
+  ],
+  "volume": [
+    1,
+    1
+  ],
+  "outflow": [
+    1,
+    1
+  ]
 }

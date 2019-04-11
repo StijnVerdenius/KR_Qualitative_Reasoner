@@ -62,7 +62,8 @@ class Quantity:
     outgoing_quantity_relations: List[Tuple[QuantityRelation, 'Quantity']]
     incoming_quantity_relations: List[Tuple[QuantityRelation, 'Quantity']]
 
-    def __init__(self, name: str, possible_magnitudes: Tuple = (NULL), initial_derivative: int = NULL, possible_derivatives: Tuple = (NEG, NULL, POS), randomized = False):
+    def __init__(self, name: str, possible_magnitudes: Tuple = (NULL), initial_derivative: int = NULL,
+                 possible_derivatives: Tuple = (NEG, NULL, POS), randomized=False):
         self.possible_magnitudes = possible_magnitudes
         self.possible_derivatives = possible_derivatives
         self.initial_derivative = initial_derivative

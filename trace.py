@@ -1,5 +1,6 @@
 from model.classes import *
 
+
 class Trace:
 
     def __init__(self, incoming_state, target_state, graph):
@@ -20,11 +21,11 @@ class Trace:
 
         found = False
 
-        stack = {self.distance_heur(self.incoming_state, self.target_state)+0 : [(self.incoming_state, 0)]}
+        stack = {self.distance_heur(self.incoming_state, self.target_state) + 0: [(self.incoming_state, 0)]}
 
         cyclefree = set()
 
-        while(not found):
+        while (not found):
 
             # get next element
             stack_keys_minimum = min(stack.keys())
@@ -59,18 +60,16 @@ class Trace:
                 if (total_cost not in stack):
                     stack[total_cost] = []
 
-                stack[total_cost].append( (possible_next, step_cost))
+                stack[total_cost].append((possible_next, step_cost))
 
         return False
-
-
 
     def distance_heur(self, a, b):
         """ calculates some manhattan distance metric"""
 
         cost = 0
         for el_a, el_b in zip(a, b):
-            cost += abs(el_a[0] -el_b[0]) + abs(el_a[1] -el_b[1])
+            cost += abs(el_a[0] - el_b[0]) + abs(el_a[1] - el_b[1])
         return cost
 
     def retrace(self, found_paths):
@@ -80,7 +79,6 @@ class Trace:
         :param found_paths:
         :return:
         """
-
 
         transfer_dict = {}
         reached = False
@@ -98,6 +96,4 @@ class Trace:
             if (current == self.incoming_state):
                 reached = True
 
-
         return transfer_dict
-

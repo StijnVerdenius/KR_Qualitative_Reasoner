@@ -13,6 +13,7 @@ from trace import Trace
 MIN_PYTHON = 3
 MIN_PYTHON_SUB = 5
 
+
 def enforce_python_version():
     """
     Enforces correct python version for run
@@ -22,10 +23,11 @@ def enforce_python_version():
 
     inf = sys.version_info
     if (inf[0] < MIN_PYTHON or inf[1] < MIN_PYTHON_SUB):
-        raise Exception("\n\n####################\nMake sure correct version of python is installed (3.5 or higher)\n####################\n\n")
+        raise Exception(
+            "\n\n####################\nMake sure correct version of python is installed (3.5 or higher)\n####################\n\n")
+
 
 def load_system(filename):
-
     """
     loads sysemt from file
 
@@ -91,7 +93,6 @@ def load_system(filename):
 
 
 def main():
-
     # make sure you use right python version
     enforce_python_version()
 
@@ -110,8 +111,8 @@ def main():
     system = load_system(filename)
     graph, all_states, states_ordered = system.solve()
 
-    start = {key : tuple(value) for key, value in json.loads(open("./data/start_state.json", "r").read()).items()}
-    target = {key : tuple(value) for key, value in json.loads(open("./data/target_state.json", "r").read()).items()}
+    start = {key: tuple(value) for key, value in json.loads(open("./data/start_state.json", "r").read()).items()}
+    target = {key: tuple(value) for key, value in json.loads(open("./data/target_state.json", "r").read()).items()}
 
     random_state = states_ordered[0]
 
@@ -133,17 +134,14 @@ def main():
         write_json = {}
 
         for key, value in trace_path.items():
-            write_json[str(key)]= str(value)
+            write_json[str(key)] = str(value)
 
-        write_json["key order"] =[ {key :  str(["magnitude", "derivative"])} for key in random_state.key_order]
+        write_json["key order"] = [{key: str(["magnitude", "derivative"])} for key in random_state.key_order]
 
         with open("./results/trace.json", "w") as f:
             json.dump(write_json, f)
 
     sys.exit(0)
-
-
-
 
 
 if __name__ == "__main__":
