@@ -128,6 +128,18 @@ def main():
     # Visualize the resulting graph.
     system.visualize(graph, all_states, states_ordered, trace_path, use_path, start_graph_node, target_graph_node)
 
+    if use_path:
+
+        write_json = {}
+
+        for key, value in trace_path.items():
+            write_json[str(key)]= str(value)
+
+        write_json["key order"] =[ {key :  str(["magnitude", "derivative"])} for key in random_state.key_order]
+
+        with open("./results/trace.json", "w") as f:
+            json.dump(write_json, f)
+
     sys.exit(0)
 
 
