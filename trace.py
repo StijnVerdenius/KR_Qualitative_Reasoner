@@ -2,10 +2,14 @@ from model.classes import *
 
 class Trace:
 
-    def __init__(self, incoming_state , target_state, graph):
+    def __init__(self, incoming_state, target_state, graph):
 
         self.incoming_state = incoming_state
         self.target_state = target_state
+
+        if (incoming_state == target_state):
+            raise Exception("Target state cannot be start state")
+
         self.graph = graph
         self.result = {}
 
@@ -82,8 +86,6 @@ class Trace:
         reached = False
 
         current = self.target_state
-
-        cyclefree = set()
 
         while (not reached):
 
