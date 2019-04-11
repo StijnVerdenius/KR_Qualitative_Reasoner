@@ -12,8 +12,8 @@ You can run it with or without trace
 
 Arguments:
 
-- [inputfile] [do_trace], which has to be in json format, defaults to "sink_problem"
-- [do_trace], which is a boolean wether you want to do a trace for the start and target states specified in their respective jsonfile in the data folder, defaults to False
+- **[inputfile]**, which has to be in json format, defaults to "sink_problem"
+- **[do_trace] = 'True' or 'False'**, which is a boolean wether you want to do a trace for the start and target states specified in their respective jsonfile in the data folder, defaults to False
 
 Note: If you specify [do_trace], then [inputfile] has to be specified too. Reversed is okay however.
 

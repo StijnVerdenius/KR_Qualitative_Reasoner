@@ -16,7 +16,7 @@ outflow (0, 0)
 " -> "inflow (0, 1)
 volume (0, 0)
 outflow (0, 0)
-" [color=black]
+" [color=red]
 	"inflow (0, 0)
 volume (1, -1)
 outflow (1, -1)
@@ -92,7 +92,7 @@ outflow (0, 0)
 " -> "inflow (1, 1)
 volume (0, 1)
 outflow (0, 1)
-" [color=black]
+" [color=red]
 	"inflow (0, 1)
 volume (0, 0)
 outflow (0, 0)
@@ -418,7 +418,7 @@ outflow (0, 1)
 " -> "inflow (1, 1)
 volume (1, 1)
 outflow (1, 1)
-" [color=black]
+" [color=red]
 	"inflow (1, 1)
 volume (1, 0)
 outflow (1, 0)
