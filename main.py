@@ -12,7 +12,9 @@ import json
 
 def main():
 
-    problem = json.loads(open("./data/sink_problem.json", "r").read())
+    print("If you wish to change the problem being solved, please alter the json-files in the data folder")
+
+    problem = json.loads(open("./data/sink_problem.json", "r").read()) #todo : via commandline
 
     entities = []
     quantities = []
@@ -61,9 +63,11 @@ def main():
         quantities_lookup[relation.quantity_to.name].set_incoming_quantity_relation(relation)
 
 
-
     system = QualatitiveReasoning(entities, quantities, value_constraints)
-    system.solve()
+    graph, all_states, states_ordered = system.solve()
+
+    start = json.loads(open("./data/start_state.json", "r").read())
+    target = json.loads(open("./data/target_state.json", "r").read())
 
 
 
