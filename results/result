@@ -16,7 +16,7 @@ outflow (0, 0)
 " -> "inflow (0, 1)
 volume (0, 0)
 outflow (0, 0)
-"
+" [color=black]
 	"inflow (0, 0)
 volume (1, -1)
 outflow (1, -1)
@@ -32,21 +32,21 @@ outflow (1, -1)
 " -> "inflow (0, 0)
 volume (0, 0)
 outflow (0, 0)
-"
+" [color=black]
 	"inflow (0, 0)
 volume (1, -1)
 outflow (1, -1)
 " -> "inflow (0, 1)
 volume (0, 0)
 outflow (0, 0)
-"
+" [color=black]
 	"inflow (0, 0)
 volume (1, -1)
 outflow (1, -1)
 " -> "inflow (0, 1)
 volume (1, -1)
 outflow (1, -1)
-"
+" [color=black]
 	"inflow (0, 0)
 volume (2, -1)
 outflow (2, -1)
@@ -62,21 +62,21 @@ outflow (2, -1)
 " -> "inflow (0, 1)
 volume (2, -1)
 outflow (2, -1)
-"
+" [color=black]
 	"inflow (0, 0)
 volume (2, -1)
 outflow (2, -1)
 " -> "inflow (0, 0)
 volume (1, -1)
 outflow (1, -1)
-"
+" [color=black]
 	"inflow (0, 0)
 volume (2, -1)
 outflow (2, -1)
 " -> "inflow (0, 1)
 volume (1, -1)
 outflow (1, -1)
-"
+" [color=black]
 	"inflow (0, 1)
 volume (0, 0)
 outflow (0, 0)
@@ -92,14 +92,14 @@ outflow (0, 0)
 " -> "inflow (1, 1)
 volume (0, 1)
 outflow (0, 1)
-"
+" [color=black]
 	"inflow (0, 1)
 volume (0, 0)
 outflow (0, 0)
 " -> "inflow (1, 0)
 volume (0, 1)
 outflow (0, 1)
-"
+" [color=black]
 	"inflow (0, 1)
 volume (1, -1)
 outflow (1, -1)
@@ -115,35 +115,35 @@ outflow (1, -1)
 " -> "inflow (0, 1)
 volume (0, 0)
 outflow (0, 0)
-"
+" [color=black]
 	"inflow (0, 1)
 volume (1, -1)
 outflow (1, -1)
 " -> "inflow (1, 1)
 volume (0, 1)
 outflow (0, 1)
-"
+" [color=black]
 	"inflow (0, 1)
 volume (1, -1)
 outflow (1, -1)
 " -> "inflow (1, 0)
 volume (0, 1)
 outflow (0, 1)
-"
+" [color=black]
 	"inflow (0, 1)
 volume (1, -1)
 outflow (1, -1)
 " -> "inflow (1, 1)
 volume (1, -1)
 outflow (1, -1)
-"
+" [color=black]
 	"inflow (0, 1)
 volume (1, -1)
 outflow (1, -1)
 " -> "inflow (1, 0)
 volume (1, -1)
 outflow (1, -1)
-"
+" [color=black]
 	"inflow (0, 1)
 volume (2, -1)
 outflow (2, -1)
@@ -159,35 +159,35 @@ outflow (2, -1)
 " -> "inflow (1, 1)
 volume (1, -1)
 outflow (1, -1)
-"
+" [color=black]
 	"inflow (0, 1)
 volume (2, -1)
 outflow (2, -1)
 " -> "inflow (1, 0)
 volume (1, -1)
 outflow (1, -1)
-"
+" [color=black]
 	"inflow (0, 1)
 volume (2, -1)
 outflow (2, -1)
 " -> "inflow (0, 1)
 volume (1, -1)
 outflow (1, -1)
-"
+" [color=black]
 	"inflow (0, 1)
 volume (2, -1)
 outflow (2, -1)
 " -> "inflow (1, 0)
 volume (2, -1)
 outflow (2, -1)
-"
+" [color=black]
 	"inflow (0, 1)
 volume (2, -1)
 outflow (2, -1)
 " -> "inflow (1, 1)
 volume (2, -1)
 outflow (2, -1)
-"
+" [color=black]
 	"inflow (1, 0)
 volume (0, 1)
 outflow (0, 1)
@@ -203,35 +203,35 @@ outflow (0, 1)
 " -> "inflow (1, 1)
 volume (0, 1)
 outflow (0, 1)
-"
+" [color=black]
 	"inflow (1, 0)
 volume (0, 1)
 outflow (0, 1)
 " -> "inflow (1, -1)
 volume (0, 1)
 outflow (0, 1)
-"
+" [color=black]
 	"inflow (1, 0)
 volume (0, 1)
 outflow (0, 1)
 " -> "inflow (1, 0)
 volume (1, 1)
 outflow (1, 1)
-"
+" [color=black]
 	"inflow (1, 0)
 volume (0, 1)
 outflow (0, 1)
 " -> "inflow (1, 1)
 volume (1, 1)
 outflow (1, 1)
-"
+" [color=black]
 	"inflow (1, 0)
 volume (0, 1)
 outflow (0, 1)
 " -> "inflow (1, -1)
 volume (1, 1)
 outflow (1, 1)
-"
+" [color=black]
 	"inflow (1, 0)
 volume (1, 0)
 outflow (1, 0)
@@ -247,14 +247,14 @@ outflow (1, 0)
 " -> "inflow (1, -1)
 volume (1, 0)
 outflow (1, 0)
-"
+" [color=black]
 	"inflow (1, 0)
 volume (1, 0)
 outflow (1, 0)
 " -> "inflow (1, 1)
 volume (1, 0)
 outflow (1, 0)
-"
+" [color=black]
 	"inflow (1, 0)
 volume (1, 1)
 outflow (1, 1)
@@ -270,14 +270,14 @@ outflow (1, 1)
 " -> "inflow (1, -1)
 volume (1, 1)
 outflow (1, 1)
-"
+" [color=black]
 	"inflow (1, 0)
 volume (1, 1)
 outflow (1, 1)
 " -> "inflow (1, 1)
 volume (1, 1)
 outflow (1, 1)
-"
+" [color=black]
 	"inflow (1, 0)
 volume (1, -1)
 outflow (1, -1)
@@ -293,35 +293,35 @@ outflow (1, -1)
 " -> "inflow (1, 1)
 volume (0, 1)
 outflow (0, 1)
-"
+" [color=black]
 	"inflow (1, 0)
 volume (1, -1)
 outflow (1, -1)
 " -> "inflow (1, 1)
 volume (1, -1)
 outflow (1, -1)
-"
+" [color=black]
 	"inflow (1, 0)
 volume (1, -1)
 outflow (1, -1)
 " -> "inflow (1, 0)
 volume (0, 1)
 outflow (0, 1)
-"
+" [color=black]
 	"inflow (1, 0)
 volume (1, -1)
 outflow (1, -1)
 " -> "inflow (1, -1)
 volume (1, -1)
 outflow (1, -1)
-"
+" [color=black]
 	"inflow (1, 0)
 volume (1, -1)
 outflow (1, -1)
 " -> "inflow (1, -1)
 volume (0, 1)
 outflow (0, 1)
-"
+" [color=black]
 	"inflow (1, 0)
 volume (2, 0)
 outflow (2, 0)
@@ -337,14 +337,14 @@ outflow (2, 0)
 " -> "inflow (1, -1)
 volume (2, 0)
 outflow (2, 0)
-"
+" [color=black]
 	"inflow (1, 0)
 volume (2, 0)
 outflow (2, 0)
 " -> "inflow (1, 1)
 volume (2, 0)
 outflow (2, 0)
-"
+" [color=black]
 	"inflow (1, 0)
 volume (2, -1)
 outflow (2, -1)
@@ -360,35 +360,35 @@ outflow (2, -1)
 " -> "inflow (1, 1)
 volume (1, -1)
 outflow (1, -1)
-"
+" [color=black]
 	"inflow (1, 0)
 volume (2, -1)
 outflow (2, -1)
 " -> "inflow (1, 0)
 volume (1, -1)
 outflow (1, -1)
-"
+" [color=black]
 	"inflow (1, 0)
 volume (2, -1)
 outflow (2, -1)
 " -> "inflow (1, -1)
 volume (1, -1)
 outflow (1, -1)
-"
+" [color=black]
 	"inflow (1, 0)
 volume (2, -1)
 outflow (2, -1)
 " -> "inflow (1, 1)
 volume (2, -1)
 outflow (2, -1)
-"
+" [color=black]
 	"inflow (1, 0)
 volume (2, -1)
 outflow (2, -1)
 " -> "inflow (1, -1)
 volume (2, -1)
 outflow (2, -1)
-"
+" [color=black]
 	"inflow (1, 1)
 volume (0, 1)
 outflow (0, 1)
@@ -404,21 +404,21 @@ outflow (0, 1)
 " -> "inflow (1, 0)
 volume (1, 1)
 outflow (1, 1)
-"
+" [color=black]
 	"inflow (1, 1)
 volume (0, 1)
 outflow (0, 1)
 " -> "inflow (1, 0)
 volume (0, 1)
 outflow (0, 1)
-"
+" [color=black]
 	"inflow (1, 1)
 volume (0, 1)
 outflow (0, 1)
 " -> "inflow (1, 1)
 volume (1, 1)
 outflow (1, 1)
-"
+" [color=black]
 	"inflow (1, 1)
 volume (1, 0)
 outflow (1, 0)
@@ -434,7 +434,7 @@ outflow (1, 0)
 " -> "inflow (1, 0)
 volume (1, 0)
 outflow (1, 0)
-"
+" [color=black]
 	"inflow (1, 1)
 volume (1, 1)
 outflow (1, 1)
@@ -450,7 +450,7 @@ outflow (1, 1)
 " -> "inflow (1, 0)
 volume (1, 1)
 outflow (1, 1)
-"
+" [color=black]
 	"inflow (1, 1)
 volume (1, -1)
 outflow (1, -1)
@@ -466,21 +466,21 @@ outflow (1, -1)
 " -> "inflow (1, 0)
 volume (0, 1)
 outflow (0, 1)
-"
+" [color=black]
 	"inflow (1, 1)
 volume (1, -1)
 outflow (1, -1)
 " -> "inflow (1, 1)
 volume (0, 1)
 outflow (0, 1)
-"
+" [color=black]
 	"inflow (1, 1)
 volume (1, -1)
 outflow (1, -1)
 " -> "inflow (1, 0)
 volume (1, -1)
 outflow (1, -1)
-"
+" [color=black]
 	"inflow (1, 1)
 volume (2, 0)
 outflow (2, 0)
@@ -496,7 +496,7 @@ outflow (2, 0)
 " -> "inflow (1, 0)
 volume (2, 0)
 outflow (2, 0)
-"
+" [color=black]
 	"inflow (1, 1)
 volume (2, -1)
 outflow (2, -1)
@@ -512,21 +512,21 @@ outflow (2, -1)
 " -> "inflow (1, 0)
 volume (2, -1)
 outflow (2, -1)
-"
+" [color=black]
 	"inflow (1, 1)
 volume (2, -1)
 outflow (2, -1)
 " -> "inflow (1, 1)
 volume (1, -1)
 outflow (1, -1)
-"
+" [color=black]
 	"inflow (1, 1)
 volume (2, -1)
 outflow (2, -1)
 " -> "inflow (1, 0)
 volume (1, -1)
 outflow (1, -1)
-"
+" [color=black]
 	"inflow (1, -1)
 volume (0, 1)
 outflow (0, 1)
@@ -542,21 +542,21 @@ outflow (0, 1)
 " -> "inflow (0, 0)
 volume (0, 0)
 outflow (0, 0)
-"
+" [color=black]
 	"inflow (1, -1)
 volume (0, 1)
 outflow (0, 1)
 " -> "inflow (0, 0)
 volume (1, -1)
 outflow (1, -1)
-"
+" [color=black]
 	"inflow (1, -1)
 volume (0, 1)
 outflow (0, 1)
 " -> "inflow (1, -1)
 volume (1, 1)
 outflow (1, 1)
-"
+" [color=black]
 	"inflow (1, -1)
 volume (1, 0)
 outflow (1, 0)
@@ -572,7 +572,7 @@ outflow (1, 0)
 " -> "inflow (0, 0)
 volume (1, -1)
 outflow (1, -1)
-"
+" [color=black]
 	"inflow (1, -1)
 volume (1, 1)
 outflow (1, 1)
@@ -588,14 +588,14 @@ outflow (1, 1)
 " -> "inflow (0, 0)
 volume (2, -1)
 outflow (2, -1)
-"
+" [color=black]
 	"inflow (1, -1)
 volume (1, 1)
 outflow (1, 1)
 " -> "inflow (0, 0)
 volume (1, -1)
 outflow (1, -1)
-"
+" [color=black]
 	"inflow (1, -1)
 volume (1, -1)
 outflow (1, -1)
@@ -611,21 +611,21 @@ outflow (1, -1)
 " -> "inflow (0, 0)
 volume (0, 0)
 outflow (0, 0)
-"
+" [color=black]
 	"inflow (1, -1)
 volume (1, -1)
 outflow (1, -1)
 " -> "inflow (0, 0)
 volume (1, -1)
 outflow (1, -1)
-"
+" [color=black]
 	"inflow (1, -1)
 volume (1, -1)
 outflow (1, -1)
 " -> "inflow (1, -1)
 volume (0, 1)
 outflow (0, 1)
-"
+" [color=black]
 	"inflow (1, -1)
 volume (2, 0)
 outflow (2, 0)
@@ -641,7 +641,7 @@ outflow (2, 0)
 " -> "inflow (0, 0)
 volume (2, -1)
 outflow (2, -1)
-"
+" [color=black]
 	"inflow (1, -1)
 volume (2, -1)
 outflow (2, -1)
@@ -657,19 +657,19 @@ outflow (2, -1)
 " -> "inflow (0, 0)
 volume (2, -1)
 outflow (2, -1)
-"
+" [color=black]
 	"inflow (1, -1)
 volume (2, -1)
 outflow (2, -1)
 " -> "inflow (0, 0)
 volume (1, -1)
 outflow (1, -1)
-"
+" [color=black]
 	"inflow (1, -1)
 volume (2, -1)
 outflow (2, -1)
 " -> "inflow (1, -1)
 volume (1, -1)
 outflow (1, -1)
-"
+" [color=black]
 }

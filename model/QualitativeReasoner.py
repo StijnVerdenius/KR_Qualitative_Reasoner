@@ -56,9 +56,6 @@ class QualatitiveReasoning:
         # Generate a graph from the remaining valid states.
         graph, all_states = self.generate_graph(states_ordered)
 
-        # Visualize the resulting graph.
-        self.visualize(graph, all_states, states_ordered)
-
         return graph, all_states, states_ordered
 
 
@@ -240,7 +237,7 @@ class QualatitiveReasoning:
 
         return graph, existing_states
 
-    def visualize(self, graph_, all_states, ordered_states_list):
+    def visualize(self, graph_, all_states, ordered_states_list, trace_path, use_path, start, target):
         """
         Visualizes state graph using graphviz
         """
@@ -253,7 +250,14 @@ class QualatitiveReasoning:
             graph.node(str(all_states[state_id].visual()), label=str(i) + "\n\n" + str(all_states[state_id].visual()))
 
             for connection_state in connect_to:
-                graph.edge(str(all_states[state_id].visual()), str(all_states[connection_state].visual()))
+                colour = "black"
+                if (use_path):
+                    for key, value in trace_path.items():
+                        if (value == state_id and key == connection_state):
+                            colour = "red"
+                            break
+
+                graph.edge(str(all_states[state_id].visual()), str(all_states[connection_state].visual()), color=colour)
 
         graph.view("./results/result")
 
