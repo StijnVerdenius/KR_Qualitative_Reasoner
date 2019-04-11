@@ -126,7 +126,7 @@ class QualitativeReasoning:
                 else:
                     signs.add(r.sign * derivative_from)
 
-            # If ambugity
+            # If ambiguity
             if -1 in signs and 1 in signs:  # (0 could also be in it)
                 continue
             elif -1 in signs and derivative != -1:
@@ -220,9 +220,7 @@ class QualitativeReasoning:
 
                             # see if random variables apply
                             if name in name_combi:
-
                                 new_state.values[name] = (new_state.values[name][0], possibility_name)
-
                                 new_state.reload_id()
 
                             # see if valid edge
@@ -269,15 +267,15 @@ class QualitativeReasoning:
         """
         for quantity_name, (magnitude, derivative) in new_state.values.items():
 
-            corresponidng_quantity = None
+            corresponding_quantity = None
 
             for q in self.quantities:
                 if q.name == quantity_name:
-                    corresponidng_quantity = q
+                    corresponding_quantity = q
                     break
 
             # Influences and proportional relations
-            relations = corresponidng_quantity.incoming_quantity_relations
+            relations = corresponding_quantity.incoming_quantity_relations
             signs = set()
             for r, quantity_from in relations:
 
