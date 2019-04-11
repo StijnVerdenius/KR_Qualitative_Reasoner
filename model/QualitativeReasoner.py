@@ -7,7 +7,7 @@ from model.classes import *
 from data.constants import *
 
 
-class QualatitiveReasoning:
+class QualitativeReasoning:
     """ Qualitative Reasoning engine """
     entities: List[Entity]
     quantities: List[Quantity]

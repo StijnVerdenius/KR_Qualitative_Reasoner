@@ -30,11 +30,11 @@ class Trace:
             # get next element
             stack_keys_minimum = min(stack.keys())
             current_element = stack[stack_keys_minimum].pop()
-            if (len(stack[stack_keys_minimum]) == 0):
+            if len(stack[stack_keys_minimum]) == 0:
                 del stack[stack_keys_minimum]
 
             # if solution, return
-            if (current_element == self.target_state):
+            if current_element == self.target_state:
                 return self.retrace(found_paths)
 
             cyclefree.add(current_element[0])

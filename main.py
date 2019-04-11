@@ -3,7 +3,7 @@ from itertools import product, combinations
 import numpy as np
 import math
 from graphviz import Digraph
-from model.QualitativeReasoner import QualatitiveReasoning
+from model.QualitativeReasoner import QualitativeReasoning
 from model.classes import *
 from data.constants import *
 import json
@@ -89,7 +89,7 @@ def load_system(filename):
         quantities_lookup[relation.quantity_from.name].set_outgoing_quantity_relation(relation)
         quantities_lookup[relation.quantity_to.name].set_incoming_quantity_relation(relation)
 
-    return QualatitiveReasoning(entities, quantities, value_constraints)
+    return QualitativeReasoning(entities, quantities, value_constraints)
 
 
 def main():
