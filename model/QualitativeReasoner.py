@@ -17,8 +17,19 @@ class QualatitiveReasoning:
         self.entities = entities
         self.quantities = quantities
         self.value_constraints = value_constraints
+        self.random_variables = []
+
+        # keep track of which variables kan change derivative randomly
+        for quantity in quantities:
+            if (quantity.randomized):
+                self.random_variables.append(quantity.name)
 
     def solve(self):
+        """
+        solves the QR system
+
+        :return:
+        """
 
         # Get all possible values defined as all possible values for magnitudes/derivatives in the program
         possible_values = set()
@@ -38,15 +49,19 @@ class QualatitiveReasoning:
                 transfer_matrix.append(entry)
 
         # Append these states from the transfer_matrix to a state list.
-        states = []
+        states_ordered = []
         for state in transfer_matrix:
-            states.append(State(self.quantities, [tuple((state[i * 2], state[i * 2 + 1])) for i in range(len(self.quantities))]))
+            states_ordered.append(State(self.quantities, [tuple((state[i * 2], state[i * 2 + 1])) for i in range(len(self.quantities))]))
 
         # Generate a graph from the remaining valid states.
-        graph, all_states = self.generate_graph(states)
+        graph, all_states = self.generate_graph(states_ordered)
 
         # Visualize the resulting graph.
-        self.visualize(graph, all_states, states)
+        self.visualize(graph, all_states, states_ordered)
+
+        return graph, all_states, states_ordered
+
+
 
     def is_valid(self, entry) -> bool:
         """
@@ -133,6 +148,8 @@ class QualatitiveReasoning:
         :param state:
         :return:
         """
+
+
         for quantity_name in quantity_names:
 
             derivative = state.values[quantity_name][1]
@@ -178,38 +195,48 @@ class QualatitiveReasoning:
 
         name_product = [combi for z in range(1, 4) for combi in combinations([q.name for q in self.quantities], z)]
 
+        # follow connections untill there are none to be made
         while added_new_connection:
 
             added_new_connection = False
 
             for state in states:
 
-                inflow_derivative = state.values["inflow"][1]
+                # follow random derivatives
+                for name in self.random_variables:
 
-                possibilities_inflow = [x for x in range(-1, 2) if abs(x - inflow_derivative) < 2]
+                    name_current_derivative = state.values[name][1]
 
-                for name_combi in name_product:
-                    for possible_inflow in possibilities_inflow:
+                    possibilities_name = [x for x in range(-1, 2) if abs(x - name_current_derivative) < 2]
 
-                        new_state = deepcopy(state)
+                    for name_combi in name_product:
 
-                        self.apply_derivatives(new_state, name_combi)
+                        for possibility_name in possibilities_name:
 
-                        self.appy_relations(new_state)
+                            new_state = deepcopy(state)
 
-                        # Since inflow has a random derivative this is a hardcoded flow.
-                        if "inflow" in name_combi:
-                            new_state.values["inflow"] = (new_state.values["inflow"][0], possible_inflow)
+                            # apply derivative
+                            self.apply_derivatives(new_state, name_combi)
 
-                            new_state.reload_id()
+                            # apply relations once
+                            self.appy_relations(new_state)
 
-                        if new_state.id not in existing_states: continue
-                        if new_state.id in graph[state.id]: continue
-                        if state.id == new_state.id: continue
+                            # see if random variables apply
+                            if name in name_combi:
 
-                        graph[state.id].add(new_state.id)
+                                new_state.values[name] = (new_state.values[name][0], possibility_name)
 
-                        added_new_connection = True
+                                new_state.reload_id()
+
+                            # see if valid edge
+                            if new_state.id not in existing_states: continue
+                            if new_state.id in graph[state.id]: continue
+                            if state.id == new_state.id: continue
+
+                            # add edge
+                            graph[state.id].add(new_state.id)
+
+                            added_new_connection = True
 
         return graph, existing_states
 

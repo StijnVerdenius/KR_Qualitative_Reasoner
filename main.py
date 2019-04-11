@@ -7,35 +7,62 @@ from graphviz import Digraph
 from model.QualitativeReasoner import QualatitiveReasoning
 from model.classes import *
 from data.constants import *
+import json
 
 
 def main():
-    tap = Entity("tap")
-    container = Entity("container")
-    sink = Entity("sink")
-    entities = [tap, container, sink]
 
-    er1 = EntityRelation("Above of", tap, container)
-    er2 = EntityRelation("In bottom of", sink, container)
+    problem = json.loads(open("./data/sink_problem.json", "r").read())
 
-    inflow = Quantity("inflow", (NULL, POS))
-    outflow = Quantity("outflow", (NULL, POS, MAX))
-    volume = Quantity("volume", (NULL, POS, MAX))
-    quantities = [inflow, volume, outflow]
+    entities = []
+    quantities = []
+    value_constraints = []
+    entity_relations = []
+    quantity_relations = []
 
-    i1 = Influence(False, outflow, volume)
-    i2 = Influence(True, inflow, volume)
-    p1 = Proportional(True, volume, outflow)
+    entities_lookup = {}
+    quantities_lookup = {}
+    value_constraints_lookup = {}
+    entity_relations_lookup = {}
+    quantity_relations_lookup = {}
 
-    value_constraint = ValueConstraint(True, volume, outflow)
+    for entity_def in problem["entities"]:
+        entity = Entity(entity_def["name"])
+        entities.append(entity)
+        entities_lookup[entity.name] = entity
 
-    outflow.set_outgoing_quantity_relation(i1)
-    outflow.set_incoming_quantity_relation(p1)
-    inflow.set_outgoing_quantity_relation(i2)
-    volume.set_incoming_quantity_relation(i1)
-    volume.set_incoming_quantity_relation(i2)
+    for entity_relation_def in problem["entity_relations"]:
+        entity_relation = EntityRelation(entity_relation_def["name"], entities_lookup[entity_relation_def["from"]], entities_lookup[entity_relation_def["to"]])
+        entity_relations.append(entity_relation)
+        entity_relations_lookup[entity_relation.name] = entity_relation
 
-    system = QualatitiveReasoning(entities, quantities, [value_constraint])
+    for quantity_def in problem["quantities"]:
+        quantity = Quantity(quantity_def["name"], readout_constants(quantity_def["possible_magnitudes"]), randomized=quantity_def["random_allowed"])
+        quantities.append(quantity)
+        quantities_lookup[quantity.name] = quantity
+
+    for value_constraint_def in problem["value_constraints"]:
+        value_constraint = ValueConstraint(value_constraint_def["sign"], quantities_lookup[value_constraint_def["from"]], quantities_lookup[value_constraint_def["to"]])
+        value_constraints.append(value_constraint)
+        value_constraints_lookup[value_constraint.quantity_from.name+"_"+value_constraint.quantity_to.name] = value_constraint
+
+    for relation_def in problem["relations"]:
+        relation = None
+        if (relation_def["type"] == "Influence"):
+            relation = Influence(relation_def["sign"], quantities_lookup[relation_def["from"]], quantities_lookup[relation_def["to"]])
+        elif (relation_def["type"] == "Proportion"):
+            relation = Proportional(relation_def["sign"], quantities_lookup[relation_def["from"]], quantities_lookup[relation_def["to"]])
+        else:
+            raise Exception("unknown relationtype: "+ relation_def["type"])
+
+        quantity_relations.append(relation)
+        quantity_relations_lookup[relation.quantity_from.name + "_" + relation.quantity_to.name] = relation
+        quantities_lookup[relation.quantity_from.name].set_outgoing_quantity_relation(relation)
+        quantities_lookup[relation.quantity_to.name].set_incoming_quantity_relation(relation)
+
+
+
+    system = QualatitiveReasoning(entities, quantities, value_constraints)
     system.solve()
 
 

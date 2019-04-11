@@ -1,1 +1,2 @@
-# KR_Qualitative_Reasoner
+# Qualitative Reasoner
+
