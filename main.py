@@ -3,14 +3,26 @@ from itertools import product, combinations
 import numpy as np
 import math
 from graphviz import Digraph
-
 from model.QualitativeReasoner import QualatitiveReasoning
 from model.classes import *
 from data.constants import *
 import json
 import sys
-
 from trace import Trace
+
+MIN_PYTHON = 3
+MIN_PYTHON_SUB = 5
+
+def enforce_python_version():
+    """
+    Enforces correct python version for run
+
+    :return:
+    """
+
+    inf = sys.version_info
+    if (inf[0] < MIN_PYTHON or inf[1] < MIN_PYTHON_SUB):
+        raise Exception("\n\n####################\nMake sure correct version of python is installed (3.5 or higher)\n####################\n\n")
 
 def load_system(filename):
 
@@ -80,13 +92,16 @@ def load_system(filename):
 
 def main():
 
+    # make sure you use right python version
+    enforce_python_version()
+
     print("If you wish to change the problem being solved, please alter the json-files in the data folder")
 
+    # load arguments
     try:
         filename = sys.argv[1]
     except:
         filename = "sink_problem"
-
     try:
         use_path = sys.argv[2]
     except:
