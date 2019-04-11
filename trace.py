@@ -18,6 +18,8 @@ class Trace:
 
         stack = {self.distance_heur(self.incoming_state, self.target_state)+0 : [(self.incoming_state, 0)]}
 
+        cyclefree = set()
+
         while(not found):
 
             # get next element
@@ -30,8 +32,13 @@ class Trace:
             if (current_element == self.target_state):
                 return self.retrace(found_paths)
 
+            cyclefree.add(current_element[0])
+
             # follow arrows
             for possible_next in self.graph[current_element[0]]:
+
+                if (possible_next in cyclefree):
+                    continue
 
                 found_paths[possible_next] = current_element[0]
 
@@ -75,6 +82,8 @@ class Trace:
         reached = False
 
         current = self.target_state
+
+        cyclefree = set()
 
         while (not reached):
 
